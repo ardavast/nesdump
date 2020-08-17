@@ -50,8 +50,10 @@ def main():
 
     print(f'Starting {sys.argv[0]} with settings:')
     print(f'  Mapper: {args.mapper}')
-    print(f'  PRGROM size: {args.prgSize} KiB')
-    print(f'  CHRROM size: {args.chrSize} KiB')
+    if args.prgSize:
+        print(f'  PRGROM size: {args.prgSize} KiB')
+    if args.chrSize:
+        print(f'  CHRROM size: {args.chrSize} KiB')
 
     mapperClass = getattr(import_module(f'mapper{args.mapper}'), 'Mapper')
     mapper = mapperClass(args.prgSize, args.chrSize)
@@ -63,16 +65,17 @@ def main():
     print('Waiting 1s for the Arduino to reset')
     time.sleep(1)
 
-    bufPrg = mapper.readPrgrom()
-    if args.prgFile:
-        print(f'Writing {args.prgSize} KiB PRGROM to {args.prgFile}')
-        with open(args.prgFile, 'wb') as f:
-            f.write(bufPrg)
+    if args.prgSize:
+        bufPrg = mapper.readPrgrom()
+        if args.prgFile:
+            print(f'Writing {args.prgSize} KiB PRGROM to {args.prgFile}')
+            with open(args.prgFile, 'wb') as f:
+                f.write(bufPrg)
 
-    if args.file:
-        print(f'Writing {args.prgSize} KiB PRGROM to {args.file}')
-        with open(args.file, 'wb') as f:
-            f.write(bufPrg)
+        if args.file:
+            print(f'Writing {args.prgSize} KiB PRGROM to {args.file}')
+            with open(args.file, 'wb') as f:
+                f.write(bufPrg)
 
 if __name__ == "__main__":
     main()
