@@ -18,14 +18,14 @@ class BaseMapper:
         return self.ser.read(endAddr - startAddr + 1)
 
     def __init__(self, prgSize, chrSize):
-        if prgSize in self.validPrgrom:
+        if prgSize in self.validPrgSizes:
             self.prgSize = prgSize
         else:
             print(f'Invalid prgSize: {prgSize}', file=stderr)
             print(f'Valid prgSizes: {self.validPrgSizes}', file=stderr)
             raise SystemExit(1)
 
-        if chrSize in self.validChrrom:
+        if chrSize in self.validChrSizes:
             self.chrSize = chrSize
         else:
             print(f'Invalid chrSize: {chrSize}', file=stderr)

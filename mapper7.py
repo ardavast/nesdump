@@ -2,8 +2,8 @@ from basemapper import BaseMapper
 
 class Mapper(BaseMapper):
     def __init__(self, prgSize, chrSize):
-        self.validPrgrom = (128, 256)
-        self.validChrrom = (0,)
+        self.validPrgSizes = (128, 256)
+        self.validChrSizes = (0,)
         super().__init__(prgSize, chrSize)
 
     def readPrgrom(self):
